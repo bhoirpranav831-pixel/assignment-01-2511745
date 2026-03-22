@@ -1,39 +1,44 @@
+-- Customers Table
 CREATE TABLE customers (
     customer_id VARCHAR(10) PRIMARY KEY,
     customer_name VARCHAR(100) NOT NULL,
     city VARCHAR(50) NOT NULL
 );
 
+-- Products Table
 CREATE TABLE products (
     product_id VARCHAR(10) PRIMARY KEY,
     product_name VARCHAR(100) NOT NULL,
     price DECIMAL(10,2) NOT NULL
 );
 
+-- Sales Representatives Table
 CREATE TABLE sales_representatives (
     rep_id VARCHAR(10) PRIMARY KEY,
     rep_name VARCHAR(100) NOT NULL
 );
 
+-- Orders Table
 CREATE TABLE orders (
     order_id VARCHAR(10) PRIMARY KEY,
     customer_id VARCHAR(10) NOT NULL,
     rep_id VARCHAR(10) NOT NULL,
-    order_date DATE,
+    order_date DATE NOT NULL,
     FOREIGN KEY (customer_id) REFERENCES customers(customer_id),
     FOREIGN KEY (rep_id) REFERENCES sales_representatives(rep_id)
 );
 
+-- Order Items Table
 CREATE TABLE order_items (
-    order_item_id INT IDENTITY(1,1) PRIMARY KEY,
+    order_item_id INTEGER PRIMARY KEY,
     order_id VARCHAR(10) NOT NULL,
     product_id VARCHAR(10) NOT NULL,
-    quantity INT NOT NULL,
+    quantity INTEGER NOT NULL,
     FOREIGN KEY (order_id) REFERENCES orders(order_id),
     FOREIGN KEY (product_id) REFERENCES products(product_id)
 );
 
--- INSERTS (5 each)
+-- INSERT DATA (at least 5 rows per table)
 
 INSERT INTO customers VALUES
 ('C1','Rahul','Mumbai'),
@@ -63,9 +68,9 @@ INSERT INTO orders VALUES
 ('O4','C4','R4','2023-04-01'),
 ('O5','C5','R5','2023-05-01');
 
-INSERT INTO order_items (order_id, product_id, quantity) VALUES
-('O1','P1',1),
-('O2','P2',2),
-('O3','P3',3),
-('O4','P4',1),
-('O5','P5',2);
+INSERT INTO order_items VALUES
+(1,'O1','P1',1),
+(2,'O2','P2',2),
+(3,'O3','P3',3),
+(4,'O4','P4',1),
+(5,'O5','P5',2);
